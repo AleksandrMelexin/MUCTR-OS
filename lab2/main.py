@@ -8,7 +8,7 @@ import os
 def main():
     root = Tk()  # создаем корневой объект - окно
     root.title("lab2")  # устанавливаем заголовок окна
-    root.geometry("200x200")  # устанавливаем размеры окна
+    root.geometry("400x400")  # устанавливаем размеры окна
     root.resizable(False, False)
 
     # получаем имена и типы дисков
