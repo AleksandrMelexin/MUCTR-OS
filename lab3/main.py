@@ -1,48 +1,83 @@
-from tkinter import *
-from tkinter import ttk
-from tkinter import filedialog
-import os
+import tkinter as tk
+from tkinter import filedialog, messagebox
 import shutil
+import os
 
-root = Tk()
-root.title("lab3")
-root.geometry("400x400")
+class FileManagerApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Файловый Менеджер (lab3)")
 
+        self.create_widgets()
 
-def open_file():
-    filepath = filedialog.askopenfilename()
-    if filepath != "":
-        os.remove(filepath)
+    def create_widgets(self):
+        # Фрейм для кнопок
+        self.button_frame = tk.Frame(self.root)
+        self.button_frame.pack(pady=10)
 
+        # Кнопка "Переместить файл"
+        self.move_button = tk.Button(self.button_frame, text="Переместить файл", command=self.move_file)
+        self.move_button.grid(row=0, column=0, padx=5)
 
-# сохраняем текст из текстового поля в файл
-def rename_file():
-    filepath = filedialog.askopenfilename()
-    name = new_name.get()  # новое имя файла
-    path = filepath[:filepath.rfind("/") + 1]
-    extension = filepath[filepath.rfind("."):]  # расширение файла
-    if filepath != "" and name != "":
-        os.rename(filepath, path + name + extension)
-    new_name.delete(0, END)
+        # Кнопка "Скопировать файл"
+        self.copy_button = tk.Button(self.button_frame, text="Скопировать файл", command=self.copy_file)
+        self.copy_button.grid(row=0, column=1, padx=5)
 
+        # Кнопка "Переименовать файл"
+        self.rename_button = tk.Button(self.button_frame, text="Переименовать файл", command=self.rename_file)
+        self.rename_button.grid(row=0, column=2, padx=5)
 
-def replace_file():
-    old_path = filedialog.asksaveasfilename()
-    if filepath != "":
-        new_path = filedialog.askdirectory()
-        name = old_path[old_path.rfind("/"):]
-        shutil.move(old_path, new_path + name)
+        # Кнопка "Удалить файл"
+        self.delete_button = tk.Button(self.button_frame, text="Удалить файл", command=self.delete_file)
+        self.delete_button.grid(row=0, column=3, padx=5)
 
+    def ask_file_path(self):
+        file_path = filedialog.askopenfilename()
+        return file_path
 
-delete_button = ttk.Button(text="Удалить файл", command=open_file)
-delete_button.pack()
-label = Label(text="Введите новое имя для файла")
-label.pack()
-new_name = ttk.Entry()
-new_name.pack()
-rename_button = ttk.Button(text="Переименовать файл", command=rename_file)
-rename_button.pack()
-replace_button = ttk.Button(text="Переместить файл", command=rename_file)
-replace_button.pack()
+    def move_file(self):
+        src_file = self.ask_file_path()
+        if src_file:
+            dest_folder = filedialog.askdirectory()
+            if dest_folder:
+                try:
+                    shutil.move(src_file, dest_folder)
+                    messagebox.showinfo("Успех", "Файл успешно перемещен!")
+                except Exception as e:
+                    messagebox.showerror("Ошибка", str(e))
 
-root.mainloop()
+    def copy_file(self):
+        src_file = self.ask_file_path()
+        if src_file:
+            dest_folder = filedialog.askdirectory()
+            if dest_folder:
+                try:
+                    shutil.copy(src_file, dest_folder)
+                    messagebox.showinfo("Успех", "Файл успешно скопирован!")
+                except Exception as e:
+                    messagebox.showerror("Ошибка", str(e))
+
+    def rename_file(self):
+        src_file = self.ask_file_path()
+        if src_file:
+            dest_file = filedialog.asksaveasfilename()
+            if dest_file:
+                try:
+                    os.rename(src_file, dest_file)
+                    messagebox.showinfo("Успех", "Файл успешно переименован!")
+                except Exception as e:
+                    messagebox.showerror("Ошибка", str(e))
+
+    def delete_file(self):
+        src_file = self.ask_file_path()
+        if src_file:
+            try:
+                os.remove(src_file)
+                messagebox.showinfo("Успех", "Файл успешно удален!")
+            except Exception as e:
+                messagebox.showerror("Ошибка", str(e))
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = FileManagerApp(root)
+    root.mainloop()
