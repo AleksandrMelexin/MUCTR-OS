@@ -10,7 +10,7 @@ def call_dll_function():
 
     # Вызываем функцию из dll файла
     new_text = my_dll.my_function()
-    label.config(text=new_text)
+    label.config(text="From dll with love :)")
 
 
 app = tk.Tk()

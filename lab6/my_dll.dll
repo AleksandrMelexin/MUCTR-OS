@@ -1,5 +1,5 @@
 #include <stdio.h>
 
 __declspec(dllexport) void my_function() {
-    return "From dll with love :)";
+    fprintf("From dll with love :)");
 }
