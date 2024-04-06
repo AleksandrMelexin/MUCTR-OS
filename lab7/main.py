@@ -7,7 +7,7 @@ class Application(tk.Tk):
         super().__init__()
 
         self.title("Отслеживание событий клавиатуры и мыши")
-        self.geometry("550x150")
+        self.geometry("550x350")
         self.resizable(False, False)
 
         self.label = tk.Label(self, text="Нажмите кнопку, чтобы начать отслеживание", font=("Arial", 14))
@@ -37,8 +37,12 @@ class Application(tk.Tk):
         self.label.config(text=f"Клавиша '{key}' нажата")
 
     def mouse_button_pressed(self, event):
-        button = event.button
-        self.label.config(text=f"Кнопка мыши '{button}' нажата")
+        try:
+            info = event.button
+            self.label.config(text=f"Кнопка мыши '{info}' нажата")
+        except AttributeError:
+            info = list(event)
+            self.label.config(text=f"Координата х: '{info[0]}'\nКоордината y: '{info[1]}'\nВремя: '{round(info[2],2)}'\n")
 
 if __name__ == "__main__":
     app = Application()
