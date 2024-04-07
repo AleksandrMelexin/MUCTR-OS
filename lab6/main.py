@@ -7,7 +7,6 @@ def call_dll_function():
     # Загружаем dll файл
     os.add_dll_directory(os.getcwd())
     my_dll = ctypes.CDLL('./my_dll.dll')
-
     # Вызываем функцию из dll файла
     new_text = my_dll.my_function()
     label.config(text="From dll with love :)")
