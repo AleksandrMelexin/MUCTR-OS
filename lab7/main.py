@@ -42,7 +42,7 @@ class Application(tk.Tk):
             self.label.config(text=f"Кнопка мыши '{info}' нажата")
         except AttributeError:
             info = list(event)
-            self.label.config(text=f"Координата х: '{info[0]}'\nКоордината y: '{info[1]}'\nВремя: '{round(info[2],2)}'\n")
+            self.label.config(text=f"X: '{info[0]} Y: '{info[1]}'")
 
 if __name__ == "__main__":
     app = Application()
