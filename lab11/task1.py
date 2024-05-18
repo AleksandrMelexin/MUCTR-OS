@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import ctypes
-import platform
 
 class AppLauncher(tk.Tk):
     def __init__(self):
@@ -32,11 +31,7 @@ class AppLauncher(tk.Tk):
         file_path = self.file_path.get()
         if file_path:
             try:
-                if platform.system() == 'Windows':
-                    # Использование ShellExecute для Windows
-                    ctypes.windll.shell32.ShellExecuteW(None, "open", file_path, None, None, 1)
-                else:
-                    messagebox.showerror("Ошибка", "Эта функция поддерживается только на Windows.")
+                ctypes.windll.shell32.ShellExecuteW(None, "open", file_path, None, None, 1)
                 messagebox.showinfo("Успех", "Приложение/файл успешно запущен")
             except Exception as e:
                 messagebox.showerror("Ошибка", f"Не удалось запустить приложение/файл: {e}")

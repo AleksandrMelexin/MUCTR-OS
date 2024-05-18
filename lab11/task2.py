@@ -10,9 +10,6 @@ class VideoConverterApp:
         self.root.title("Конвертер Видео")
         self.root.geometry("510x200")
         self.root.resizable(False, False) 
-        self.create_widgets()
-        
-    def create_widgets(self):
         # Поле для выбора входного файла
         self.input_file_label = tk.Label(self.root, text="Выбрать файл:")
         self.input_file_label.grid(row=0, column=0, padx=10, pady=5, sticky='e')
