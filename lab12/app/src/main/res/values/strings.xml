@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Lab12</string>
+    <string name="main_text">Калькулятор</string>
+    <string name="text1">Введите первое число</string>
+    <string name="text2">Введите второе число</string>
+    <string name="button_text">Сложить числа</string>
+</resources>
